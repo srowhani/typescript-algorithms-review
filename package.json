@@ -1,0 +1,39 @@
+{
+  "name": "typescript-algorithms-review",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --no-watchman --runInBand",
+    "ts": "npm run ts-node"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^10.9.4",
+    "ts-jest": "^23.1.4",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.0.3"
+  },
+  "dependencies": {
+    "@types/jest": "^23.3.1",
+    "jest": "^23.5.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json",
+      "ts",
+      "tsx"
+    ],
+    "transform": {
+      "\\.(ts|tsx)$": "ts-jest"
+    },
+    "moduleNameMapper": {
+      "@src/(.*)": "<rootDir>/src/$1",
+      "@test/(.*)": "<rootDir>/__test__/$1"
+    },
+    "testRegex": "((\\.|/)spec)\\.ts$"
+  }
+}
