@@ -6,7 +6,12 @@ export class BinarySearchTree<T, Node extends BinarySearchTreeNode<T,Node>> {
   protected treeSize: number;
 
   constructor () {
+    this.rootNode = null;
     this.treeSize = 0;
+  }
+
+  public get root () {
+    return this.rootNode;
   }
 
   public add(node: Node): boolean {

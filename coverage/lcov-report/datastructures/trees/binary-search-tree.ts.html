@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for datastructures/trees/binary-search-tree.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">datastructures/trees</a> binary-search-tree.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">53.85% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>14/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">12.5% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>1/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>5/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">53.85% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>14/26</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { BinarySearchTreeNode } from "@topics/datastructures/trees/binary-tree-node";
+import { Nullable } from "@topics/datastructures/trees/types";
+&nbsp;
+export class BinarySearchTree&lt;T, Node extends BinarySearchTreeNode&lt;T,Node&gt;&gt; {
+  protected rootNode: Nullable&lt;Node&gt;;
+  protected treeSize: number;
+&nbsp;
+  constructor () {
+    this.rootNode = null;
+    this.treeSize = 0;
+  }
+&nbsp;
+  public get root () {
+    return this.rootNode;
+  }
+&nbsp;
+  public add(node: Node): boolean {
+    const lastNode = this.findLast(node.value)
+    return this.addChild(lastNode, node);
+  }
+&nbsp;
+  private addChild(parent: Nullable&lt;Node&gt;, child: Node): boolean {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (parent === null) {
+      this.rootNode = child;
+    } else {
+      const comparisonResult = <span class="cstat-no" title="statement not covered" >child.compareToNode(parent);</span>
+<span class="cstat-no" title="statement not covered" >      if (comparisonResult &lt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >        parent.left = child;</span>
+      } else <span class="cstat-no" title="statement not covered" >if (comparisonResult &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >        parent.right = child;</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        return false; </span>// child already in tree
+      }
+<span class="cstat-no" title="statement not covered" >      child.parent = parent;</span>
+    }
+    this.treeSize++;
+    return true;
+  }
+&nbsp;
+  public findLast(value: T): Nullable&lt;Node&gt; {
+    let currentNode: Nullable&lt;Node&gt; = this.rootNode;
+    let previousNode: Nullable&lt;Node&gt; = null;
+&nbsp;
+    while (currentNode !== null) {
+<span class="cstat-no" title="statement not covered" >      previousNode = currentNode;</span>
+      const comparisonResult = <span class="cstat-no" title="statement not covered" >currentNode.compareToValue(value);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (comparisonResult &lt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >        currentNode = currentNode.left;</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        currentNode = currentNode.right;</span>
+      }
+    }
+    return previousNode;
+  }
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Sep 08 2018 19:30:12 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

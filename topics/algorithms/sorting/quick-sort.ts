@@ -1,5 +1,5 @@
 export function swap<T>(items: T[], i: number, j: number): void {
-  console.log(`swap<T>: ${items[i]} <-> ${items[j]}`);
+  // console.log(`swap<T>: ${items[i]} <-> ${items[j]}`);
   const temp = items[i];
   items[i] = items[j];
   items[j] = temp;
@@ -46,21 +46,20 @@ export function partition<T>(items: T[], leftIndex: number, rightIndex: number):
  * @param items 
  */
 export function quickSort<T>(items: T[], leftIndex = 0, rightIndex = items.length - 1): T[] {
-  console.log(`quickSort<T>: items=${items}, leftIndex=${leftIndex}, rightIndex=${rightIndex}`);
+  // console.log(`quickSort<T>: items=${items}, leftIndex=${leftIndex}, rightIndex=${rightIndex}`);
   if (items.length > 1) {
     const partitionIndex = partition(items, leftIndex, rightIndex);
-    console.log(`after partition<T>: items=${items}, partitionIndex=${partitionIndex}`);
+    // console.log(`after partition<T>: items=${items}, partitionIndex=${partitionIndex}`);
 
-    console.log(`${leftIndex} < ${partitionIndex - 1}`)
+    // console.log(`${leftIndex} < ${partitionIndex - 1}`)
 
     if (leftIndex < partitionIndex - 1) {
-      console.log('left quickSort<T>');
+      // console.log('left quickSort<T>');
       quickSort(items, leftIndex, partitionIndex - 1);
     }
-    console.log(`${rightIndex} > ${partitionIndex}`)
+    // console.log(`${rightIndex} > ${partitionIndex}`)
     if (rightIndex > partitionIndex) {
-      console.log('right quickSort<T>');
-
+      // console.log('right quickSort<T>');
       quickSort(items, partitionIndex, rightIndex);
     }
   }

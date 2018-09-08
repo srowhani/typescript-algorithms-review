@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --no-watchman --runInBand",
+    "test": "jest --no-watchman --runInBand --coverage --no-cache",
     "ts": "npm run ts-node"
   },
   "author": "",
@@ -31,8 +31,7 @@
       "\\.(ts|tsx)$": "ts-jest"
     },
     "moduleNameMapper": {
-      "@src/(.*)": "<rootDir>/src/$1",
-      "@test/(.*)": "<rootDir>/__test__/$1"
+      "@topics/(.*)": "<rootDir>/topics/$1"
     },
     "testRegex": "((\\.|/)spec)\\.ts$"
   }
