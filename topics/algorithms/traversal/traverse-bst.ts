@@ -8,6 +8,7 @@ export interface Traversable<Node> {
 
 export enum TraversalMethod {
   PRE_ORDER,
+  PRE_ORDER_ITER,
   POST_ORDER,
   IN_ORDER,
 }
@@ -25,6 +26,9 @@ export class TraverseBSTT<T> extends BinarySearchTree<T, TreeNode<T>> implements
     switch(this.traverseMethod) {
       case TraversalMethod.PRE_ORDER:
         yield* this.preOrderTraversal();
+        break;
+      case TraversalMethod.PRE_ORDER_ITER:
+        yield* this.iterPreOrderTraversal();
     }
   }
 
@@ -34,6 +38,30 @@ export class TraverseBSTT<T> extends BinarySearchTree<T, TreeNode<T>> implements
       yield* this.preOrderTraversal(u.left);
       yield* this.preOrderTraversal(u.right);
     } 
+  }
+
+  private *iterPreOrderTraversal(): Iterable<TreeNode<T>> {
+    if (this.root === null) {
+      return;
+    }
+
+    const stack = [this.root];
+    
+    while (stack.length > 0) {
+      let u = stack.pop();
+      
+      if (u) {
+        yield u;
+
+        if (u.right) {
+          stack.push(u.right);
+        }
+        if (u.left) {
+          stack.push(u.left);
+        }
+      }
+
+    }
   }
 
 }
