@@ -1,5 +1,6 @@
 import { BinarySearchTreeNode } from "@topics/datastructures/trees/binary-tree-node";
 import { BinarySearchTree } from "@topics/datastructures/trees/binary-search-tree";
+import { Nullable } from "@topics/datastructures/trees/types";
 
 export class AVLTreeNode<T> extends BinarySearchTreeNode<T, AVLTreeNode<T>> {
   public height?: number;
@@ -17,8 +18,10 @@ export class AVLTreeNode<T> extends BinarySearchTreeNode<T, AVLTreeNode<T>> {
  * - Every subtree is an AVL Tree
  */
 export class AVLTree<T> extends BinarySearchTree<T, AVLTreeNode<T>> {
-  public height(node: AVLTreeNode<T>): number {
-    return node.height || 0;
+  public height(node: Nullable<AVLTreeNode<T>>): number {
+    return node !== null
+      ? node.height || 0
+      : 0;
   }
 
   public add(value: T): boolean {
@@ -27,8 +30,16 @@ export class AVLTree<T> extends BinarySearchTree<T, AVLTreeNode<T>> {
       value,
     })
 
-    if (super.add()) {
-
+    if (super.add(node)) {
+      for (let tn: Nullable<AVLTreeNode<T>> = node; tn !== null; tn = tn.parent) {
+        // walk back up to the root adjusting heights
+        tn.height = Math.max(
+          this.height(tn.left),
+          this.height(tn.right)
+        ) + 1;
+        // TODO: Fix up the tree after adding items
+      }
     }
+    return true;
   }
 }

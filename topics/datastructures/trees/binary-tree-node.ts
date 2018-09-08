@@ -1,12 +1,15 @@
+import { Nullable } from "@topics/datastructures/trees/types";
 
 
 export class BinaryTreeNode<Node extends BinaryTreeNode<Node>> {
-  public left?: Node;
-  public right?: Node;
-  public parent: Node | null;
+  public left: Nullable<Node>;
+  public right: Nullable<Node>;
+  public parent: Nullable<Node>;
 
-  constructor({ parent }: { parent: Node | null }) {
+  constructor({ parent }: { parent: Nullable<Node> }) {
     this.parent = parent;
+    this.left = null;
+    this.right = null;
   }
 }
 
@@ -19,13 +22,13 @@ export class BinarySearchTreeNode<
 > extends BinaryTreeNode<Node> {
   public value: T;
 
-  constructor ({ parent, value }: { parent: Node | null, value: T }) {
+  constructor ({ parent, value }: { parent: Nullable<Node>, value: T }) {
     super({ parent });
     this.value = value;
   }
 
   public compareToNode (other: BinarySearchTreeNode<T, Node>) {
-    return this.value > other.value;
+    return Number(this.value) - Number(other.value);
   }
   /**
    * Basic compareTo function. Will only work for numbers lol sh dont
