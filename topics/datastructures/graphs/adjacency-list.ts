@@ -11,8 +11,8 @@
  * In the worst case, this vertex could be connected to everything but itself
  * so time complexity becomes O(|V| - 1)
  */
-type ConnectedVertexList = number[];
-const adjacencyList: { [vertexAsIndex: number]: ConnectedVertexList} = [
+export type ConnectedVertexList = number[];
+export const adjacencyList: { [vertexAsIndex: number]: ConnectedVertexList} = [
   [1, 6, 8],
   [0, 4, 6, 9],
   [4, 6],
@@ -27,4 +27,16 @@ const adjacencyList: { [vertexAsIndex: number]: ConnectedVertexList} = [
 
 export function adjacencyListContains(i: number, j: number) {
   return adjacencyList[i].includes(j);
+}
+
+export function* bfs (graph: typeof adjacencyList, startingNode: number): Iterable<number> {
+  const visitedNodes: { [vertexAsIndex: number]: boolean } = { [startingNode]: true};
+  const stack = [ startingNode ];
+  while (stack.length > 0) {
+    const currentNode = stack.shift()!;
+    yield currentNode;
+    const connectedVertexList = graph[currentNode];
+    stack.push(...connectedVertexList.filter(v => !visitedNodes[v]));
+    connectedVertexList.forEach(v => visitedNodes[v] = true);
+  }
 }
