@@ -22,10 +22,18 @@ export interface OptConfig {
   minStationDistance: number,
 }
 
+export function memoize<T>(fn: (...args: any[]) => any): (...args: any[]) => T {
+  const _cache: { [ signature: string ]: T } = {};
+  return function _memoizedWrapper(...args: any[]): T {
+    const signature = `${fn.name}:${args.toString()}`;
+    return signature in _cache
+      ? _cache[signature]
+      : _cache[signature] = fn(...args);
+  }
+}
+
 export function createPlacementOptimizer ({ stations, revenues, minStationDistance }: OptConfig) {
-  const _cachedPlacements: { [ signature: string ]: number } = {};
-  
-  return function _optimize(stationIndex: number = stations.length - 1): number {
+  const optimize = memoize<number>(function _optimize(stationIndex: number = stations.length - 1): number {
     if (stationIndex < 0) {
       return 0;
     }
@@ -35,12 +43,14 @@ export function createPlacementOptimizer ({ stations, revenues, minStationDistan
     }
 
     const currentStation = stations[stationIndex];
+    let currentRevenue = revenues[stationIndex];
     let _attemptCursor = undefined;
     
     // find the best in the batch
     if (currentStation - stations[0] < minStationDistance) {
       return revenues.slice(0, stationIndex + 1).reduce(
-        (best, current) => Math.max(best, current), -Infinity
+        (best, current) => Math.max(best, current),
+        -Infinity
       )
     }
      
@@ -51,22 +61,15 @@ export function createPlacementOptimizer ({ stations, revenues, minStationDistan
         break;
       }
     }
-
-    // memoization
-    let s = _cachedPlacements[`opt(${_attemptCursor})`] !== undefined
-      ? _cachedPlacements[`opt(${_attemptCursor})`]
-      : _cachedPlacements[`opt(${_attemptCursor})`] = _optimize(_attemptCursor) // O(e_j)
-
-    let t = _cachedPlacements[`opt(${stationIndex - 1})`] !== undefined
-    ? _cachedPlacements[`opt(${stationIndex - 1})`]
-    : _cachedPlacements[`opt(${stationIndex - 1})`] = _optimize(stationIndex - 1) // O(stationIndex - 1)
     
     // optimal solution is either current revenue accumulated
     // with the best possible candidate 20 away
     // or a solution that doesnt include the current station
     return Math.max(
-      revenues[stationIndex] + s,
-      t
+      optimize(_attemptCursor) + currentRevenue,
+      optimize(stationIndex - 1),
     );
-  }
+  });
+
+  return optimize;
 } 
