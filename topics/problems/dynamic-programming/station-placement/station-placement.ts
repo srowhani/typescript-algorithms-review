@@ -1,3 +1,5 @@
+import { memoize } from "@topics/problems/dynamic-programming/memoize";
+
 /**
  *  * Suppose you want to place gasoline stations at various locations along a highway.
  * For simplicity, let us model the highway as the X-axis.
@@ -20,16 +22,6 @@ export interface OptConfig {
   stations: number[],
   revenues: number[],
   minStationDistance: number,
-}
-
-export function memoize<T>(fn: (...args: any[]) => any): (...args: any[]) => T {
-  const _cache: { [ signature: string ]: T } = {};
-  return function _memoizedWrapper(...args: any[]): T {
-    const signature = `${fn.name}:${args.toString()}`;
-    return signature in _cache
-      ? _cache[signature]
-      : _cache[signature] = fn(...args);
-  }
 }
 
 export function createPlacementOptimizer ({ stations, revenues, minStationDistance }: OptConfig) {

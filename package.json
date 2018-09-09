@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --verbose --no-watchman --runInBand --coverage",
+    "cache:clear": "jest --clearCache",
     "ts": "npm run ts-node"
   },
   "author": "",

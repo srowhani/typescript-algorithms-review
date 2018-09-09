@@ -1,3 +1,5 @@
+import { deflateSync } from "zlib";
+
 /**
  * Representing a graph with adjacency lists combines the adjacency matrix with
  * an edge list.
@@ -39,4 +41,18 @@ export function* bfs (graph: typeof adjacencyList, startingNode: number): Iterab
     stack.push(...connectedVertexList.filter(v => !visitedNodes[v]));
     connectedVertexList.forEach(v => visitedNodes[v] = true);
   }
+}
+
+export function* dfs(graph: typeof adjacencyList, startingVertex: number): Iterable<number> {
+  const visitedNodes: { [vertexAsIndex: number]: boolean } = {};
+  function* _dfs (v: number): Iterable<number> {
+    visitedNodes[v] = true;
+    yield v;
+    for (let adjacenctNode of graph[v]) {
+      if (!visitedNodes[adjacenctNode]) {
+        yield* _dfs(adjacenctNode);
+      }
+    }
+  };
+  return yield* _dfs(startingVertex);
 }
