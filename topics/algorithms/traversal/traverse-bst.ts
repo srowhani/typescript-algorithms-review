@@ -10,6 +10,7 @@ export enum TraversalMethod {
   PRE_ORDER,
   PRE_ORDER_ITER,
   POST_ORDER,
+  POST_ORDER_ITER,
   IN_ORDER,
   IN_ORDER_ITER,
 }
@@ -36,10 +37,19 @@ export class TraverseBSTT<T> extends BinarySearchTree<T, TreeNode<T>> implements
         break;
       case TraversalMethod.IN_ORDER_ITER:
         yield* this.iterInOrderTraversal();
+        break;
+      case TraversalMethod.POST_ORDER:
+        yield* this.postOrderTraversal();
+        break;
+      case TraversalMethod.POST_ORDER_ITER:
+        yield* this.iterPostOrderTraversal();
+        break;
+      default:
+        return;
     }
   }
 
-  private *preOrderTraversal(u: Nullable<TreeNode<T>> = this.rootNode): Iterable<TreeNode<T>> {
+  private *preOrderTraversal(u: Nullable<TreeNode<T>> = this.root): Iterable<TreeNode<T>> {
     if (u !== null) {
       yield u;
       yield* this.preOrderTraversal(u.left);
@@ -71,7 +81,7 @@ export class TraverseBSTT<T> extends BinarySearchTree<T, TreeNode<T>> implements
     }
   }
 
-  private *inOrderTraversal(u: Nullable<TreeNode<T>> = this.rootNode): Iterable<TreeNode<T>> {
+  private *inOrderTraversal(u: Nullable<TreeNode<T>> = this.root): Iterable<TreeNode<T>> {
     if (u !== null) {
       yield* this.preOrderTraversal(u.left);
       yield u;
@@ -98,6 +108,43 @@ export class TraverseBSTT<T> extends BinarySearchTree<T, TreeNode<T>> implements
         }
       }
     }
+  }
+
+  private *postOrderTraversal(u: Nullable<TreeNode<T>> = this.root): Iterable<TreeNode<T>> {
+    if (u) {
+      yield* this.postOrderTraversal(u.left);
+      yield* this.postOrderTraversal(u.right);
+      yield u;
+    }
+  }
+
+  private *iterPostOrderTraversal(): Iterable<TreeNode<T>> {
+    if (this.root === null) {
+      return;
+    }
+
+    const nodeStack: Nullable<TreeNode<T>>[] = [ this.root ];
+    const resultStack: Nullable<TreeNode<T>>[] = [];
+
+    let currentNode: Nullable<TreeNode<T>> = null;
+    
+    while (nodeStack.length > 0) {
+      currentNode = nodeStack.pop() as Nullable<TreeNode<T>>;
+      if (currentNode) {
+        resultStack.push(currentNode);
+        if (currentNode.left) {
+          nodeStack.push(currentNode.left);
+        }
+        if (currentNode.right) {
+          nodeStack.push(currentNode.right);
+        }
+      }
+    }
+
+    while (resultStack.length > 0) {
+      yield resultStack.pop()!;
+    }
+
   }
 
 }
