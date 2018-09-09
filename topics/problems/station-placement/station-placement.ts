@@ -47,7 +47,7 @@ export function createPlacementOptimizer ({ stations, revenues, minStationDistan
     // find closest el at least 20 away
      for (let i = stationIndex - 1; i >= 0; i--) {
       if (currentStation - stations[i] >= minStationDistance) {
-        _attemptCursor = i // at most 20
+        _attemptCursor = i // next possible item, given we choose to keep current station
         break;
       }
     }
