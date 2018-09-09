@@ -11,6 +11,7 @@ export enum TraversalMethod {
   PRE_ORDER_ITER,
   POST_ORDER,
   IN_ORDER,
+  IN_ORDER_ITER,
 }
 
 export class TreeNode<T> extends BinarySearchTreeNode<T, TreeNode<T>> {};
@@ -29,6 +30,12 @@ export class TraverseBSTT<T> extends BinarySearchTree<T, TreeNode<T>> implements
         break;
       case TraversalMethod.PRE_ORDER_ITER:
         yield* this.iterPreOrderTraversal();
+        break;
+      case TraversalMethod.IN_ORDER:
+        yield* this.inOrderTraversal();
+        break;
+      case TraversalMethod.IN_ORDER_ITER:
+        yield* this.iterInOrderTraversal();
     }
   }
 
@@ -61,6 +68,35 @@ export class TraverseBSTT<T> extends BinarySearchTree<T, TreeNode<T>> implements
         }
       }
 
+    }
+  }
+
+  private *inOrderTraversal(u: Nullable<TreeNode<T>> = this.rootNode): Iterable<TreeNode<T>> {
+    if (u !== null) {
+      yield* this.preOrderTraversal(u.left);
+      yield u;
+      yield* this.preOrderTraversal(u.right);
+    } 
+  }
+
+  private *iterInOrderTraversal(): Iterable<TreeNode<T>> {
+    const toVisitLater: TreeNode<T>[] = [ ];
+    let u: Nullable<TreeNode<T>> = this.root;
+    // there is either something to visit later, or currentNode isn't null and keep processing
+    // we keep evaluation of u as falsey to cover both null case from nullable or undefined from .pop
+    while (toVisitLater.length > 0 || u) {
+      if (u) {
+        toVisitLater.push(u);
+        u = u.left;
+      } else {
+        // since we can't go any further left, we pop a node that we wanted to visit and try again
+        u = toVisitLater.pop() as Nullable<TreeNode<T>>;
+        // we now actually mark the node as visited
+        if (u) {
+          yield u;
+          u = u.right; // then we start going right and repeat the process.
+        }
+      }
     }
   }
 

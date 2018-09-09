@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --no-watchman --runInBand --coverage",
+    "test": "jest --verbose --no-watchman --runInBand --coverage",
     "ts": "npm run ts-node"
   },
   "author": "",
