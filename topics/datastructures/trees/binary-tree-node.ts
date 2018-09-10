@@ -11,6 +11,23 @@ export class BinaryTreeNode<Node extends BinaryTreeNode<Node>> {
     this.left = null;
     this.right = null;
   }
+
+  public removeChild(u: Node): boolean {
+    return this.replaceChild(u, null);
+  }
+
+  public replaceChild(nodeToRemove: Node, childNode: Nullable<Node> ): boolean {
+    if (this.left === nodeToRemove) {
+      this.left = childNode;
+      return true;
+    }
+    if (this.right === nodeToRemove) {
+      this.right = childNode;
+      return true;
+    }
+    return false;
+  }
+
 }
 
 export class BinarySearchTreeNode<

@@ -37,6 +37,36 @@ export class BinarySearchTree<T, Node extends BinarySearchTreeNode<T,Node>> {
     return true;
   }
 
+  public remove(nodeToRemove: Node) {
+    const { parent, left, right } = nodeToRemove;
+    // has no children
+    if (!left && !right) {
+      if (parent) {
+        parent.removeChild(nodeToRemove);
+      }
+    } else if (left && right) {
+      const nextBiggerNode = this.findBranchMinimum(right);
+      this.remove(nextBiggerNode);
+      nodeToRemove.value = nextBiggerNode.value;
+    } else {
+      // just one child
+      const childNode = left || right;
+      if (parent) {
+        parent.replaceChild(nodeToRemove, childNode)
+      }
+    }
+  }
+  /**
+   * By going left on a given node, we find the lowest value of that given node.
+   * @param branchedNode 
+   */
+  public findBranchMinimum(branchedNode: Node) {
+    let w = branchedNode;
+    for (; w.left !== null; w = w.left);
+    return w;
+  }
+
+
   public findLast(value: T): Nullable<Node> {
     let currentNode: Nullable<Node> = this.rootNode;
     let previousNode: Nullable<Node> = null;
