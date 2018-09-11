@@ -33,12 +33,12 @@ export function adjacencyListContains(i: number, j: number) {
 
 export function* bfs (graph: typeof adjacencyList, startingNode: number): Iterable<number> {
   const visitedNodes: { [vertexAsIndex: number]: boolean } = { [startingNode]: true};
-  const stack = [ startingNode ];
-  while (stack.length > 0) {
-    const currentNode = stack.shift()!;
+  const queue = [ startingNode ];
+  while (queue.length > 0) {
+    const currentNode = queue.shift()!; // like a queue
     yield currentNode;
     const connectedVertexList = graph[currentNode];
-    stack.push(...connectedVertexList.filter(v => !visitedNodes[v]));
+    queue.push(...connectedVertexList.filter(v => !visitedNodes[v]));
     connectedVertexList.forEach(v => visitedNodes[v] = true);
   }
 }

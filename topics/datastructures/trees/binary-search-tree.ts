@@ -49,12 +49,16 @@ export class BinarySearchTree<T, Node extends BinarySearchTreeNode<T,Node>> {
       this.remove(nextBiggerNode);
       nodeToRemove.value = nextBiggerNode.value;
     } else {
-      // just one child
-      const childNode = left || right;
-      if (parent) {
-        parent.replaceChild(nodeToRemove, childNode)
+      if (left || right) {
       }
     }
+  }
+
+  public splice(nodeToRemove: Node) {
+    if (nodeToRemove.parent) {
+      nodeToRemove.parent.replaceChild(nodeToRemove, childNode);
+    }
+    n--;
   }
   /**
    * By going left on a given node, we find the lowest value of that given node.

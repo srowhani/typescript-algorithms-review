@@ -25,6 +25,7 @@ export class BinaryTreeNode<Node extends BinaryTreeNode<Node>> {
       this.right = childNode;
       return true;
     }
+
     return false;
   }
 

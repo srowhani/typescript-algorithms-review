@@ -1,4 +1,4 @@
-import { mergeSortRecursive } from './merge-sort';
+import { mergeSortRecursive, mergeTailRecursive } from './merge-sort';
 
 describe('merge-sort', () => {
   it('sorts descending array to ascending', () => {
@@ -9,5 +9,10 @@ describe('merge-sort', () => {
   it('sorts an unsorted array' , () => {
     const a = [8, 6, 9, 10, 3, 5, 1, 4, 2, 7];
     expect(mergeSortRecursive(a)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  })
+
+  it('sorts an unsorted array with recursive merge' , () => {
+    const a = [8, 6, 9, 10, 3, 5, 1, 4, 2, 7];
+    expect(mergeSortRecursive(a, mergeTailRecursive)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   })
 });
