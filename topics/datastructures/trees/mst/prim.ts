@@ -1,18 +1,6 @@
 import { PriorityQueue } from "@topics/datastructures/p-queue/priority-queue";
-import { adjacencyList } from "@topics/datastructures/graphs/adjacency-list";
 import { Nullable } from "@topics/datastructures/trees/types";
-
-export type IVertex = number;
-
-export interface IEdge {
-  start: IVertex;
-  end: IVertex;
-  weight: number;
-}
-
-export interface IGraph {
-  [vertex: number]: IEdge[]
-}
+import { IGraph, IEdge, IVertex } from "@topics/datastructures/trees/mst";
 
 export function edgesForNode (graph: IGraph, v: IVertex): IEdge[] {
   return graph[v];

@@ -83,9 +83,9 @@ export class TraverseBSTT<T> extends BinarySearchTree<T, TreeNode<T>> implements
 
   private *inOrderTraversal(u: Nullable<TreeNode<T>> = this.root): Iterable<TreeNode<T>> {
     if (u !== null) {
-      yield* this.preOrderTraversal(u.left);
+      yield* this.inOrderTraversal(u.left);
       yield u;
-      yield* this.preOrderTraversal(u.right);
+      yield* this.inOrderTraversal(u.right);
     } 
   }
 
