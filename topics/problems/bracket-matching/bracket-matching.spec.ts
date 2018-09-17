@@ -5,6 +5,7 @@ describe('bracket-matching', () => {
     expect(bracketsMatch('[]()<>')).toBeTruthy();
     expect(bracketsMatch('<[()]>')).toBeTruthy();
     expect(bracketsMatch('<a[b(cc)]d>e')).toBeTruthy();
-
+    expect(bracketsMatch('{{[[(())]]}}')).toBeTruthy();
+    expect(bracketsMatch('{[(])}')).toBeFalsy();
   })
 })

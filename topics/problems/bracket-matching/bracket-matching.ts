@@ -25,7 +25,7 @@ export function isBracket(input: string): boolean {
 
 export function bracketsMatch(input: string): boolean {
   const bracketStack: string[] = [];
-  for (const char of input.split('')) {
+  for (const char of input) {
     if (isBracket(char)) {
       const peekedValue = peek(bracketStack);
       if (peekedValue) {
